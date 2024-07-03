@@ -22,7 +22,12 @@ train_size, validation_size = 100, 20
 training_dataset = dataset['train'].shuffle(seed=42).select(range(train_size))
 validation_dataset = dataset['validation'].shuffle(seed=42).select(range(validation_size))
 
-def convert_to_msg(row):
+def convert_to_msg(row: dict) -> dict:
+    """
+    Extract dialogue and summary from the dataset row.
+
+    Return a dictionary in the OpenAI format.
+    """
     return { 
         'messages': [
             {
@@ -40,12 +45,14 @@ def convert_to_msg(row):
         ]
     }
 
+# Write training data in the Open AI fine-tuning format to a file
 f = open('data/train.jsonl', 'w')
 for row in training_dataset:
     json.dump(convert_to_msg(row), f)
     f.write('\n')
 f.close()
 
+# Write validation data in the Open AI fine-tuning format to a file
 f = open('data/valid.jsonl', 'w')
 for row in validation_dataset:
     json.dump(convert_to_msg(row), f)
