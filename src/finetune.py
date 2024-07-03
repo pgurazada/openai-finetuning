@@ -30,3 +30,4 @@ client.fine_tuning.jobs.list(limit=10)
 
 finetuning_job = client.fine_tuning.jobs.retrieve("ftjob-Um7AMWzmreBZxwpjBgYbngOd")
 finetuning_job.status
+finetuning_job.fine_tuned_model
